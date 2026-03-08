@@ -1,17 +1,25 @@
-import { recipes } from "./data"
+import { recipes } from "./lib/data"
+import Header from "./components/Header";
+import RecipeListCard from "./components/RecipeListCard";
 
 export default function Home() {
   return (
-    <main className="p-4">
-      <h1 className="text-xl font-bold mb-4">レシピ一覧</h1>
+    <main>
+      <Header
+        title="味付けテンプレ"
+        rightIcon={
+          <img src="/icons/plus.svg" alt="追加" className="w-7 h-7 mr-[10px] mt-[3px]" />
+        }
+        leftIcon={
+          <img src="/icons/search.svg" alt="検索" className="w-[30px] h-[30px] ml-[10px] mt-[5px]" />
+        }
+      />
 
-      {recipes.map((recipe) => (
-        <div key={recipe.id} className="border rounded-lg p-4 mb-4 shadow">
-          <h2 className="text-lg font-semibold">{recipe.name}</h2>
-          <p>カテゴリ: {recipe.category}</p>
-          <p>基準人数: {recipe.baseServing}人分</p>
-        </div>
-      ))}
+      <div className="mx-4 mt-[18px]">
+        {recipes.map((recipe) => (
+          <RecipeListCard key={recipe.id} recipe={recipe} />
+        ))}
+      </div>
     </main>
   )
 }
