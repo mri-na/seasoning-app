@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 import { recipes } from "./lib/data"
-=======
 import Link from "next/link"
-import { recipes } from "./data"
->>>>>>> feature/recipe-detail
 
 export default function Home() {
   return (
