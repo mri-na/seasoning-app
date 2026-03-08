@@ -1,5 +1,5 @@
-import { recipes } from "./lib/data"
 import Link from "next/link"
+import { recipes } from "./lib/data"
 
 export default function Home() {
   return (
