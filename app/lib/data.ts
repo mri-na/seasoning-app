@@ -9,7 +9,7 @@ export type Ingredient = {
 
 export type Recipe = {
   id: string
-  name: string
+  title: string
   category: string
   baseServing: number
   ingredients: Ingredient[]
@@ -18,13 +18,14 @@ export type Recipe = {
 export const recipes: Recipe[] = [
   {
     id: "1",
-    name: "照り焼きソース",
+    title: "照り焼きソース",
     category: "和食",
     baseServing: 2,
     ingredients: [
-      { id: "1-1", name: "醤油", amount: 2, unit: "大さじ" },
-      { id: "1-2", name: "みりん", amount: 2, unit: "大さじ" },
-      { id: "1-3", name: "砂糖", amount: 1, unit: "大さじ" }
+      { id: "1-1", name: "酒", amount: 2, unit: "大さじ" },
+      { id: "1-2", name: "醤油", amount: 2, unit: "大さじ" },
+      { id: "1-3", name: "みりん", amount: 2, unit: "大さじ" },
+      { id: "1-4", name: "砂糖", amount: 1, unit: "大さじ" }
     ]
   }
 ]

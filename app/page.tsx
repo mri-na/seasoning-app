@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import { recipes } from "./lib/data"
+=======
+import Link from "next/link"
+import { recipes } from "./data"
+>>>>>>> feature/recipe-detail
 
 export default function Home() {
   return (
@@ -6,11 +11,15 @@ export default function Home() {
       <h1 className="text-xl font-bold mb-4">レシピ一覧</h1>
 
       {recipes.map((recipe) => (
-        <div key={recipe.id} className="border rounded-lg p-4 mb-4 shadow">
-          <h2 className="text-lg font-semibold">{recipe.name}</h2>
+        <Link
+          key={recipe.id}
+          href={`/recipes/${recipe.id}`}
+          className="block border rounded-lg p-4 mb-4 shadow"
+        >
+          <h2 className="text-lg font-semibold">{recipe.title}</h2>
           <p>カテゴリ: {recipe.category}</p>
           <p>基準人数: {recipe.baseServing}人分</p>
-        </div>
+        </Link>
       ))}
     </main>
   )
