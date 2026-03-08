@@ -23,7 +23,7 @@ export default function RecipeCard({
       {/* 上部：カテゴリとタイトル */}
       <div className="px-[9px]">
         <div className="flex items-center px-[9px] py-3 border-b border-[#999999]">
-          <span className="px-3 py-1 h-[36px] inline-flex items-center justify-center items-start pt-[4px] border border-[#999999] rounded-full text-base tracking-[0.1em] font-normal">
+          <span className="px-3 py-1 h-[36px] inline-flex items-center justify-center items-start pt-[4px] border border-[#D9D9D9] bg-[#D9D9D9] rounded-full text-base tracking-[0.1em] font-normal">
             {category}
           </span>
 

@@ -2,8 +2,9 @@ import { recipes } from "../../lib/data";
 import Header from "../../components/Header";
 import RecipeCard from "../../components/RecipeCard";
 
-export default function RecipeDetail() {
-  const recipe = recipes[0];
+export default async function RecipeDetail({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const recipe = recipes.find((r) => r.id === id)
 
   if (!recipe) return <p>レシピが見つかりません</p>;
 
