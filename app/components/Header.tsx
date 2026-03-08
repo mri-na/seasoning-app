@@ -1,9 +1,11 @@
 type HeaderProps = {
   title: string;
   backHref?: string;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
 };
 
-export default function Header({ title, backHref }: HeaderProps) {
+export default function Header({ title, backHref, leftIcon, rightIcon }: HeaderProps) {
   return (
     <header className="h-[72px]">
       {/* 上段 */}
@@ -13,14 +15,16 @@ export default function Header({ title, backHref }: HeaderProps) {
             <img src="/icons/arrow-left.svg" alt="戻る" className="w-6 h-6" />
           </a>
         ) : (
-          <div />
+          leftIcon
         )}
 
         <h1 className="text-[24px] tracking-[0.16em] font-normal text-center flex-1 mt-[4px]">
           {title}
         </h1>
 
-        <div className="w-6" />
+        <div className="w-6 h-6 flex justify-end">
+          {rightIcon}
+        </div>
       </div>
 
       {/* 下の線 */}
