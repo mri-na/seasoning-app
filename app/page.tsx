@@ -1,4 +1,4 @@
-import { recipes } from "./data"
+import { recipes } from "./lib/data"
 
 export default function Home() {
   return (
