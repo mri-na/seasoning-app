@@ -1,3 +1,6 @@
+"use client";
+import { useState } from "react";
+
 type Ingredient = {
   name: string;
   amount: number;
@@ -17,6 +20,9 @@ export default function RecipeCard({
   serving,
   ingredients,
 }: RecipeCardProps) {
+
+  const [currentServing, setCurrentServing] = useState(serving);
+
   return (
     <div className="mx-4 mt-[18px] border border-[#999999] rounded-[20px] overflow-hidden">
 
@@ -38,15 +44,19 @@ export default function RecipeCard({
       {/* 人数 */}
       <div className="px-[9px]">
         <div className="flex items-center justify-center gap-[32px] py-4 border-b border-[#999999]">
-          <button className="w-12 h-12 rounded-full bg-[#D9D9D9] flex items-center justify-center">
+          <button
+            onClick={() => setCurrentServing((prev) => Math.max(1, prev - 1))}
+            className="w-12 h-12 rounded-full bg-[#D9D9D9] flex items-center justify-center">
             <img src="/icons/minus.svg" alt="minus" />
           </button>
 
           <span className="text-[20px] tracking-[0.1em] font-normal">
-           {serving}人前
+            {currentServing}人前
           </span>
 
-          <button className="w-12 h-12 rounded-full bg-[#D9D9D9] flex items-center justify-center">
+          <button
+            onClick={() => setCurrentServing((prev) => prev + 1)}
+            className="w-12 h-12 rounded-full bg-[#D9D9D9] flex items-center justify-center">
             <img src="/icons/plus.svg" alt="plus" />
           </button>
         </div>
@@ -54,15 +64,18 @@ export default function RecipeCard({
 
       {/* 材料 */}
       <ul className="px-[18px]">
-        {ingredients.map((item, index) => (
-          <li
-            key={index}
-            className="flex justify-between px-[10px] py-4 text-[20px] tracking-[0.1em] font-normal border-b border-dashed border-[#999999] last:border-none"
-          >
-            <span>{item.name}</span>
-            <span>{item.unit}{item.amount}</span>
-          </li>
-        ))}
+        {ingredients.map((item, index) => {
+          const scaledAmount = Math.round((item.amount * currentServing) / serving * 10) / 10;
+          return (
+            <li
+              key={index}
+              className="flex justify-between px-[10px] py-4 text-[20px] tracking-[0.1em] font-normal border-b border-dashed border-[#999999] last:border-none"
+            >
+              <span>{item.name}</span>
+              <span>{item.unit}{scaledAmount}</span>
+            </li>
+          );
+        })}
       </ul>
 
       {/* MEMO */}
