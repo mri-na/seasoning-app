@@ -1,11 +1,7 @@
 "use client";
 import { useState } from "react";
 
-type Ingredient = {
-  name: string;
-  amount: number;
-  unit: string;
-};
+import type { Ingredient } from "../lib/data";
 
 type RecipeCardProps = {
   category: string;
@@ -64,11 +60,11 @@ export default function RecipeCard({
 
       {/* 材料 */}
       <ul className="px-[18px]">
-        {ingredients.map((item, index) => {
+        {ingredients.map((item) => {
           const scaledAmount = Math.round((item.amount * currentServing) / serving * 10) / 10;
           return (
             <li
-              key={index}
+              key={item.id}
               className="flex justify-between px-[10px] py-4 text-[20px] tracking-[0.1em] font-normal border-b border-dashed border-[#999999] last:border-none"
             >
               <span>{item.name}</span>
