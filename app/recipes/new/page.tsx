@@ -23,7 +23,7 @@ export default function NewPage() {
 
   const [memo, setMemo] = useState("");
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!title.trim()) {
       alert("料理名を入力してください");
       return;
@@ -52,7 +52,13 @@ export default function NewPage() {
       memo,
     };
 
-    console.log(newRecipe);
+    await fetch("/api/recipes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newRecipe),
+    });
   };
 
   return (
