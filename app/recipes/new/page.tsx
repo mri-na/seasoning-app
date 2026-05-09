@@ -11,6 +11,8 @@ export default function NewPage() {
   
   const categories = ["和食", "洋食", "中華", "韓国", "その他"];
 
+  const [baseServing, setBaseServing] = useState(1);
+
   const [ingredients, setIngredients] = useState([
     { id: uuidv4(), name: "", amount: "", unit: "ml" }
   ]);
@@ -44,7 +46,7 @@ export default function NewPage() {
       id: uuidv4(),
       title,
       category: selectedCategory,
-      baseServing: 2,
+      baseServing,
       ingredients: ingredients.map((i) => ({
         ...i,
         amount: Number(i.amount),
@@ -93,6 +95,7 @@ export default function NewPage() {
           <div className="grid grid-cols-2 gap-3">
             {categories.map((category) => (
               <button
+                type="button"
                 key={category}
                 onClick={() => setSelectedCategory(category)}
                 className={`h-[46px] rounded-full text-[18px] tracking-[0.1em] border
@@ -106,6 +109,35 @@ export default function NewPage() {
                 {category}
               </button>
             ))}
+          </div>
+        </section>
+        
+        {/* 基準人数 */}
+        <section className="mt-8 pt-5 border-t border-[#999999]">
+          <p className="text-[20px] tracking-[0.1em] font-normal mb-4">
+            基準人数
+          </p>
+
+          <div className="flex items-center justify-center gap-[32px] py-2">
+            <button
+              type="button"
+              onClick={() => setBaseServing((prev) => Math.max(1, prev - 1))}
+              className="w-12 h-12 rounded-full bg-[#D9D9D9] flex items-center justify-center"
+            >
+              <img src="/icons/minus.svg" alt="minus" />
+            </button>
+
+            <span className="text-[20px] tracking-[0.1em] font-normal">
+              {baseServing}人前
+            </span>
+
+            <button
+              type="button"
+              onClick={() => setBaseServing((prev) => prev + 1)}
+              className="w-12 h-12 rounded-full bg-[#D9D9D9] flex items-center justify-center"
+            >
+              <img src="/icons/plus.svg" alt="plus" />
+            </button>
           </div>
         </section>
 
@@ -122,6 +154,7 @@ export default function NewPage() {
             {/* 削除ボタン */}
             <div className="flex justify-end mb-2">
               <button
+                type="button"
                 onClick={() => {
                   const newList = ingredients.filter((i) => i.id !== item.id);
                   setIngredients(newList);
@@ -197,6 +230,7 @@ export default function NewPage() {
 
           {/* 追加ボタン */}
           <button
+            type="button"
             onClick={addIngredient}
             className="relative w-full h-[60px] border border-[#999999] rounded-full mt-6 flex items-center justify-center text-[21px] tracking-[0.18em] font-normal pl-[24px]
             active:bg-[#999999] active:text-white"
@@ -222,6 +256,7 @@ export default function NewPage() {
 
         {/* 保存ボタン */}
         <button
+          type="button"
           onClick={handleSave}
           className="w-full h-[58px] border border-[#999999] rounded-full mt-8 text-[20px] tracking-[0.1em] font-normal active:bg-[#999999] active:text-white"
         >
