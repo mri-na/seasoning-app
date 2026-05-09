@@ -23,6 +23,13 @@ export default function RecipeCard({
 
   const [currentServing, setCurrentServing] = useState(serving);
 
+  const formatAmount = (amount: number, unit: string) => {
+    if (unit === "大さじ" || unit === "小さじ") {
+      return `${unit}${amount}`;
+    }
+      return `${amount}${unit}`;
+  };
+
   const handleDelete = async () => {
     const ok = confirm("本当に削除しますか？");
 
@@ -42,7 +49,7 @@ export default function RecipeCard({
         {/* 上部：カテゴリとタイトル */}
         <div className="px-[9px]">
           <div className="flex items-center px-[9px] py-3 border-b border-[#999999]">
-            <span className="px-3 py-1 h-[36px] inline-flex items-center justify-center items-start pt-[4px] border border-[#D9D9D9] bg-[#D9D9D9] rounded-full text-base tracking-[0.1em] font-normal">
+            <span className="px-3 py-1 h-[36px] inline-flex justify-center items-start pt-[4px] border border-[#D9D9D9] bg-[#D9D9D9] rounded-full text-base tracking-[0.1em] font-normal">
               {category}
             </span>
 
@@ -81,13 +88,14 @@ export default function RecipeCard({
         <ul className="px-[18px]">
           {ingredients.map((item) => {
             const scaledAmount = Math.round((item.amount * currentServing) / serving * 10) / 10;
+            
             return (
               <li
                 key={item.id}
                 className="flex justify-between px-[10px] py-4 text-[20px] tracking-[0.1em] font-normal border-b border-dashed border-[#999999] last:border-none"
               >
                 <span>{item.name}</span>
-                <span>{item.unit}{scaledAmount}</span>
+                <span>{formatAmount(scaledAmount, item.unit)}</span>
               </li>
             );
           })}
