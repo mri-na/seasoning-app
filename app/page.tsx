@@ -1,9 +1,14 @@
-import { recipes } from "./lib/data"
 import Header from "./components/Header";
 import RecipeListCard from "./components/RecipeListCard";
 import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+  const res = await fetch("http://localhost:3000/api/recipes", {
+    cache: "no-store",
+  });
+
+  const recipes = await res.json();
+
   return (
     <main>
       <Header
@@ -19,7 +24,7 @@ export default function Home() {
       />
 
       <div className="mx-4 mt-[18px]">
-        {recipes.map((recipe) => (
+        {recipes.map((recipe: any) => (
           <RecipeListCard key={recipe.id} recipe={recipe} />
         ))}
       </div>
