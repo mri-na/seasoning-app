@@ -1,12 +1,22 @@
-import { recipes } from "../../lib/data";
 import Header from "../../components/Header";
 import RecipeCard from "../../components/RecipeCard";
 
-export default async function RecipeDetail({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params
-  const recipe = recipes.find((r) => r.id === id)
+export default async function RecipeDetail({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
 
-  if (!recipe) return <p>レシピが見つかりません</p>;
+  const res = await fetch(`http://localhost:3000/api/recipes/${id}`, {
+    cache: "no-store",
+  });
+
+  const recipe = await res.json();
+
+  if (!recipe) {
+    return <p>レシピが見つかりません</p>;
+  }
 
   return (
     <div>
@@ -21,5 +31,5 @@ export default async function RecipeDetail({ params }: { params: Promise<{ id: s
         />
       </main>
     </div>
-  )
+  );
 }
