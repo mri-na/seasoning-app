@@ -31,3 +31,34 @@ export async function GET(
 
   return Response.json(recipe);
 }
+
+export async function PATCH(
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+  const data = await req.json();
+
+  const recipe = await prisma.recipe.update({
+    where: { id },
+    data: {
+      title: data.title,
+      category: data.category,
+      baseServing: data.baseServing,
+      memo: data.memo,
+      ingredients: {
+        deleteMany: {},
+        create: data.ingredients.map((i: any) => ({
+          name: i.name,
+          amount: i.amount,
+          unit: i.unit,
+        })),
+      },
+    },
+    include: {
+      ingredients: true,
+    },
+  });
+
+  return Response.json(recipe);
+}
