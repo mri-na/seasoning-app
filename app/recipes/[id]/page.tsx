@@ -1,5 +1,6 @@
 import Header from "../../components/Header";
 import RecipeCard from "../../components/RecipeCard";
+import Link from "next/link";
 
 export default async function RecipeDetail({
   params,
@@ -20,7 +21,15 @@ export default async function RecipeDetail({
 
   return (
     <div>
-      <Header title="味付けテンプレ" backHref="/" />
+      <Header
+        title="味付けテンプレ"
+        backHref="/"
+        rightIcon={
+          <Link href={`/recipes/${id}/edit`}>
+            <img src="/icons/pen.svg" alt="編集" className="w-[30px] h-[30px] mr-[10px] mt-[2px]" />
+          </Link>
+        }
+      />
 
       <main>
         <RecipeCard
