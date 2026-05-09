@@ -28,3 +28,16 @@ export async function POST(req: Request) {
 
   return Response.json(recipe);
 }
+
+export async function GET() {
+  const recipes = await prisma.recipe.findMany({
+    include: {
+      ingredients: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return Response.json(recipes);
+}
