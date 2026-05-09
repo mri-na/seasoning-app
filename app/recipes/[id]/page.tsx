@@ -28,6 +28,7 @@ export default async function RecipeDetail({
           title={recipe.title}
           serving={recipe.baseServing}
           ingredients={recipe.ingredients}
+          memo={recipe.memo}
         />
       </main>
     </div>

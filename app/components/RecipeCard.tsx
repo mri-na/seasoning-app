@@ -8,6 +8,7 @@ type RecipeCardProps = {
   title: string;
   serving: number;
   ingredients: Ingredient[];
+  memo?: string | null;
 };
 
 export default function RecipeCard({
@@ -15,6 +16,7 @@ export default function RecipeCard({
   title,
   serving,
   ingredients,
+  memo,
 }: RecipeCardProps) {
 
   const [currentServing, setCurrentServing] = useState(serving);
@@ -78,7 +80,10 @@ export default function RecipeCard({
       <div className="px-[9px]">
         <div className="flex items-center px-[9px] py-4 border-t border-[#999999]">
           <div className="px-[10px] py-0 text-[20px] tracking-[0.1em] font-normal min-h-[110px]">
-            MEMO
+            <p className="mb-3">MEMO</p>
+            <p className="whitespace-pre-wrap text-[18px] tracking-[0.06em]">
+              {memo || ""}
+            </p>
           </div>
         </div>
       </div>
