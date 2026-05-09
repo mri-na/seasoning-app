@@ -33,6 +33,7 @@ export default async function RecipeDetail({
 
       <main>
         <RecipeCard
+          id={recipe.id}
           category={recipe.category}
           title={recipe.title}
           serving={recipe.baseServing}
