@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { Ingredient } from "../lib/data";
 
 type RecipeCardProps = {
+  id: string;
   category: string;
   title: string;
   serving: number;
@@ -12,6 +13,7 @@ type RecipeCardProps = {
 };
 
 export default function RecipeCard({
+  id,
   category,
   title,
   serving,
@@ -21,72 +23,97 @@ export default function RecipeCard({
 
   const [currentServing, setCurrentServing] = useState(serving);
 
+  const handleDelete = async () => {
+    const ok = confirm("本当に削除しますか？");
+
+    if (!ok) return;
+
+    await fetch(`/api/recipes/${id}`, {
+      method: "DELETE",
+    });
+
+    window.location.href = "/";
+  };
+
   return (
-    <div className="mx-4 mt-[18px] border border-[#999999] rounded-[20px] overflow-hidden">
+    <main className="mx-4">
+      <div className="mt-[18px] border border-[#999999] rounded-[20px] overflow-hidden">
 
-      {/* 上部：カテゴリとタイトル */}
-      <div className="px-[9px]">
-        <div className="flex items-center px-[9px] py-3 border-b border-[#999999]">
-          <span className="px-3 py-1 h-[36px] inline-flex items-center justify-center items-start pt-[4px] border border-[#D9D9D9] bg-[#D9D9D9] rounded-full text-base tracking-[0.1em] font-normal">
-            {category}
-          </span>
+        {/* 上部：カテゴリとタイトル */}
+        <div className="px-[9px]">
+          <div className="flex items-center px-[9px] py-3 border-b border-[#999999]">
+            <span className="px-3 py-1 h-[36px] inline-flex items-center justify-center items-start pt-[4px] border border-[#D9D9D9] bg-[#D9D9D9] rounded-full text-base tracking-[0.1em] font-normal">
+              {category}
+            </span>
 
-          <div className="w-px h-[40px] bg-[#999999] mx-[18px]" />
+            <div className="w-px h-[40px] bg-[#999999] mx-[18px]" />
 
-          <span className="text-[22px] tracking-[0.06em] font-normal">
-           {title}
-          </span>
+            <span className="text-[22px] tracking-[0.06em] font-normal">
+              {title}
+            </span>
+          </div>
         </div>
-      </div>
 
-      {/* 人数 */}
-      <div className="px-[9px]">
-        <div className="flex items-center justify-center gap-[32px] py-4 border-b border-[#999999]">
-          <button
-            onClick={() => setCurrentServing((prev) => Math.max(1, prev - 1))}
-            className="w-12 h-12 rounded-full bg-[#D9D9D9] flex items-center justify-center">
-            <img src="/icons/minus.svg" alt="minus" />
-          </button>
+        {/* 人数 */}
+        <div className="px-[9px]">
+          <div className="flex items-center justify-center gap-[32px] py-4 border-b border-[#999999]">
+            <button
+              type="button"
+              onClick={() => setCurrentServing((prev) => Math.max(1, prev - 1))}
+              className="w-12 h-12 rounded-full bg-[#D9D9D9] flex items-center justify-center">
+              <img src="/icons/minus.svg" alt="minus" />
+            </button>
 
-          <span className="text-[20px] tracking-[0.1em] font-normal">
-            {currentServing}人前
-          </span>
+            <span className="text-[20px] tracking-[0.1em] font-normal">
+              {currentServing}人前
+            </span>
 
-          <button
-            onClick={() => setCurrentServing((prev) => prev + 1)}
-            className="w-12 h-12 rounded-full bg-[#D9D9D9] flex items-center justify-center">
-            <img src="/icons/plus.svg" alt="plus" />
-          </button>
+            <button
+              type="button"
+              onClick={() => setCurrentServing((prev) => prev + 1)}
+              className="w-12 h-12 rounded-full bg-[#D9D9D9] flex items-center justify-center">
+              <img src="/icons/plus.svg" alt="plus" />
+            </button>
+          </div>
         </div>
-      </div>
 
-      {/* 材料 */}
-      <ul className="px-[18px]">
-        {ingredients.map((item) => {
-          const scaledAmount = Math.round((item.amount * currentServing) / serving * 10) / 10;
-          return (
-            <li
-              key={item.id}
-              className="flex justify-between px-[10px] py-4 text-[20px] tracking-[0.1em] font-normal border-b border-dashed border-[#999999] last:border-none"
-            >
-              <span>{item.name}</span>
-              <span>{item.unit}{scaledAmount}</span>
-            </li>
-          );
-        })}
-      </ul>
+        {/* 材料 */}
+        <ul className="px-[18px]">
+          {ingredients.map((item) => {
+            const scaledAmount = Math.round((item.amount * currentServing) / serving * 10) / 10;
+            return (
+              <li
+                key={item.id}
+                className="flex justify-between px-[10px] py-4 text-[20px] tracking-[0.1em] font-normal border-b border-dashed border-[#999999] last:border-none"
+              >
+                <span>{item.name}</span>
+                <span>{item.unit}{scaledAmount}</span>
+              </li>
+            );
+          })}
+        </ul>
 
-      {/* MEMO */}
-      <div className="px-[9px]">
-        <div className="flex items-center px-[9px] py-4 border-t border-[#999999]">
-          <div className="px-[10px] py-0 text-[20px] tracking-[0.1em] font-normal min-h-[110px]">
-            <p className="mb-3">MEMO</p>
-            <p className="whitespace-pre-wrap text-[18px] tracking-[0.06em]">
-              {memo || ""}
-            </p>
+        {/* MEMO */}
+        <div className="px-[9px]">
+          <div className="flex items-center px-[9px] py-4 border-t border-[#999999]">
+            <div className="px-[10px] py-0 text-[20px] tracking-[0.1em] font-normal min-h-[110px]">
+              <p className="mb-3">MEMO</p>
+              <p className="whitespace-pre-wrap text-[18px] tracking-[0.06em]">
+                {memo || ""}
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+      {/* 削除ボタン */}
+      <button
+        type="button"
+        onClick={handleDelete}
+        className="w-full h-[58px] border border-[#999999] rounded-full mt-4 text-[20px] tracking-[0.1em] font-normal active:bg-[#999999] active:text-white"
+      >
+        このレシピを削除する
+      </button>
+    </main>
   );
 }
