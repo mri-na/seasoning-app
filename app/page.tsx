@@ -3,7 +3,10 @@ import RecipeListCard from "./components/RecipeListCard";
 import Link from "next/link";
 
 export default async function Home() {
-  const res = await fetch("/api/recipes", {
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
+  const res = await fetch(`${baseUrl}/api/recipes`, {
     cache: "no-store",
   });
 
