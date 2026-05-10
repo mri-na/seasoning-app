@@ -14,7 +14,7 @@ export default function NewPage() {
   const [baseServing, setBaseServing] = useState(1);
 
   const prefixUnits = ["大さじ", "小さじ"];
-  const topsuffixUnits = ["ml", "g"];
+  const topSuffixUnits = ["ml", "g"];
   const bottomSuffixUnits = ["カップ"];
 
   const [ingredients, setIngredients] = useState([
@@ -65,6 +65,8 @@ export default function NewPage() {
       },
       body: JSON.stringify(newRecipe),
     });
+
+    window.location.href = "/";
   };
 
   return (
@@ -226,7 +228,7 @@ export default function NewPage() {
             {/* 右：ml・g・カップ */}
             <div className="grid grid-rows-2 gap-2">
               <div className="grid grid-cols-2 gap-2">
-                {topsuffixUnits.map((unit) => (
+                {topSuffixUnits.map((unit) => (
                   <button
                     type="button"
                     key={unit}
