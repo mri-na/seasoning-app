@@ -13,13 +13,17 @@ export default function NewPage() {
 
   const [baseServing, setBaseServing] = useState(1);
 
+  const prefixUnits = ["大さじ", "小さじ"];
+  const topsuffixUnits = ["ml", "g"];
+  const bottomSuffixUnits = ["カップ"];
+
   const [ingredients, setIngredients] = useState([
-    { id: uuidv4(), name: "", amount: "", unit: "ml" }
+    { id: uuidv4(), name: "", amount: "", unit: "" }
   ]);
   const addIngredient = () => {
     setIngredients([
       ...ingredients,
-      { id: uuidv4(), name: "", amount: "", unit: "ml" }
+      { id: uuidv4(), name: "", amount: "", unit: "" }
     ]);
   };
 
@@ -180,45 +184,94 @@ export default function NewPage() {
               className="w-full h-[48px] border border-[#999999] rounded-[14px] px-4 outline-none focus:ring-2 focus:ring-[#999999]"
             />
 
-            {/* 数量 + 単位 */}
-            <div className="flex justify-end gap-2 mt-2">
-              <input
-                type="number"
-                value={item.amount}
-                onChange={(e) => {
-                  const newList = ingredients.map((i) =>
-                    i.id === item.id
-                      ? { ...i, amount: e.target.value }
-                      : i
-                  );
-                  setIngredients(newList);
-                }}
-                className="w-[80px] h-[48px] border border-[#999999] rounded-[12px] px-3 outline-none focus:ring-2 focus:ring-[#999999]"
-              />
-
-              <div className="relative">
-                <select
-                  value={item.unit}
-                  onChange={(e) => {
+          <div className="grid grid-cols-[1fr_80px_1fr] items-center gap-2 mt-3">
+            {/* 左：大さじ・小さじ */}
+            <div className="grid grid-rows-2 gap-2">
+              {prefixUnits.map((unit) => (
+                <button
+                  type="button"
+                  key={unit}
+                  onClick={() => {
                     const newList = ingredients.map((i) =>
-                      i.id === item.id
-                        ? { ...i, unit: e.target.value }
-                        : i
+                      i.id === item.id ? { ...i, unit } : i
                     );
                     setIngredients(newList);
                   }}
-                  className="appearance-none w-[100px] h-[48px] border border-[#999999] rounded-[12px] px-3 pr-8 outline-none focus:ring-2 focus:ring-[#999999]"
+                  className={`h-[42px] rounded-full border text-[18px] tracking-[0.06em]
+                    ${
+                    item.unit === unit
+                    ? "bg-[#999999] text-white border-[#999999]"
+                    : "border-[#999999]"
+                    }
+                  `}
                 >
-                  <option>ml</option>
-                  <option>g</option>
-                  <option>大さじ</option>
-                  <option>小さじ</option>
-                </select>
-                <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[#999999] pr-0.5">
-                  ▼ 
-                </span>
-              </div>
+                  {unit}
+                </button>
+              ))}
             </div>
+
+            {/* 数字入力 */}
+            <input
+              type="number"
+              value={item.amount}
+              onChange={(e) => {
+                const newList = ingredients.map((i) =>
+                  i.id === item.id ? { ...i, amount: e.target.value } : i
+                );
+                setIngredients(newList);
+              }}
+              className="w-full h-[48px] border border-[#999999] rounded-[12px] px-3 text-center outline-none focus:ring-2 focus:ring-[#999999]"
+            />
+
+            {/* 右：ml・g・カップ */}
+            <div className="grid grid-rows-2 gap-2">
+              <div className="grid grid-cols-2 gap-2">
+                {topsuffixUnits.map((unit) => (
+                  <button
+                    type="button"
+                    key={unit}
+                    onClick={() => {
+                      const newList = ingredients.map((i) =>
+                      i.id === item.id ? { ...i, unit } : i
+                      );
+                      setIngredients(newList);
+                    }}
+                    className={`h-[42px] rounded-full border text-[18px]
+                      ${
+                      item.unit === unit
+                      ? "bg-[#999999] text-white border-[#999999]"
+                      : "border-[#999999]"
+                      }
+                    `}
+                  >
+                    {unit}
+                  </button>
+                ))}
+              </div>
+
+                {bottomSuffixUnits.map((unit) => (
+                  <button
+                    type="button"
+                    key={unit}
+                    onClick={() => {
+                      const newList = ingredients.map((i) =>
+                      i.id === item.id ? { ...i, unit } : i
+                      );
+                      setIngredients(newList);
+                    }}
+                    className={`h-[42px] rounded-full border text-[18px] tracking-[0.06em]
+                      ${
+                      item.unit === unit
+                      ? "bg-[#999999] text-white border-[#999999]"
+                      : "border-[#999999]"
+                      }
+                    `}
+                  >
+                    {unit}
+                  </button>
+                ))}
+            </div>
+          </div>
 
             {/* 点線（最後以外に表示） */}
             {index !== ingredients.length - 1 && (
@@ -258,7 +311,7 @@ export default function NewPage() {
         <button
           type="button"
           onClick={handleSave}
-          className="w-full h-[58px] border border-[#999999] rounded-full mt-8 text-[20px] tracking-[0.1em] font-normal active:bg-[#999999] active:text-white"
+          className="w-full h-[58px] border border-[#999999] rounded-full mt-[14px] text-[20px] tracking-[0.1em] font-normal active:bg-[#999999] active:text-white"
         >
           保存する
         </button>
