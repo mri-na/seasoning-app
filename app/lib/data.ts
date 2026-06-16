@@ -1,19 +1,6 @@
-export type Unit = "g" | "ml" | "大さじ" | "小さじ"
 
-export type Ingredient = {
-  id: string
-  name: string
-  amount: number
-  unit: Unit
-}
 
-export type Recipe = {
-  id: string
-  title: string
-  category: string
-  baseServing: number
-  ingredients: Ingredient[]
-}
+
 
 export const recipes: Recipe[] = [
   {

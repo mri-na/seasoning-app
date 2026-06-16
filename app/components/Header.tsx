@@ -1,9 +1,4 @@
-type HeaderProps = {
-  title: string;
-  backHref?: string;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
-};
+import type { HeaderProps } from "../lib/types";
 
 export default function Header({ title, backHref, leftIcon, rightIcon }: HeaderProps) {
   return (
