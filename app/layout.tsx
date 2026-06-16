@@ -19,8 +19,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={notoSansJP.className}>
-        {children}
+      <body className={`${notoSansJP.className} bg-[#F5F5F5] flex justify-center`}>
+        <div className="w-full max-w-[430px] min-h-screen bg-white">
+          {children}
+        </div>
       </body>
     </html>
   );
