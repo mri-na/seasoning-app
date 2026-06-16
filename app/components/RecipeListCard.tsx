@@ -1,17 +1,7 @@
 import Link from "next/link";
+import type { RecipeListCardProps } from "../lib/types";
 
-type Recipe = {
-  id: string;
-  title: string;
-  category: string;
-  baseServing: number;
-};
-
-type Props = {
-  recipe: Recipe;
-};
-
-export default function RecipeListCard({ recipe }: Props) {
+export default function RecipeListCard({ recipe }: RecipeListCardProps) {
   return (
     <Link
       href={`/recipes/${recipe.id}`}

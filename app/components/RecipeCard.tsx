@@ -1,16 +1,6 @@
 "use client";
 import { useState } from "react";
-
-import type { Ingredient } from "../lib/data";
-
-type RecipeCardProps = {
-  id: string;
-  category: string;
-  title: string;
-  serving: number;
-  ingredients: Ingredient[];
-  memo?: string | null;
-};
+import type { RecipeCardProps } from "../lib/types";
 
 export default function RecipeCard({
   id,

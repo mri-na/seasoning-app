@@ -1,0 +1,49 @@
+export type HeaderProps = {
+  title: React.ReactNode;
+  backHref?: string;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+};
+
+export type Unit = "g" | "ml" | "大さじ" | "小さじ" | "カップ"
+
+export type Ingredient = {
+  id: string
+  name: string
+  amount: number
+  unit: Unit
+}
+
+export type Recipe = {
+  id: string
+  title: string
+  category: string
+  baseServing: number
+  ingredients: Ingredient[]
+  memo?: string | null;
+}
+
+export type RecipeCardProps = {
+  id: string;
+  category: string;
+  title: string;
+  serving: number;
+  ingredients: Ingredient[];
+  memo?: string | null;
+};
+
+export type RecipeListCardProps = {
+  recipe: Recipe;
+};
+
+export type RecipeSearchProps = {
+  recipes: Recipe[];
+};
+
+export type SearchHeaderProps = {
+  searchText: string;
+  setSearchText: (value: string) => void;
+  selectedCategory: string;
+  setSelectedCategory: (value: string) => void;
+  onClose: () => void;
+};
