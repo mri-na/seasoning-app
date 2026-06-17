@@ -42,6 +42,7 @@ export default async function RecipeDetail({
           serving={recipe.baseServing}
           ingredients={recipe.ingredients}
           memo={recipe.memo}
+          isFavorite={recipe.isFavorite}
         />
       </main>
     </div>
