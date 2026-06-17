@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import type { RecipeCardProps } from "../lib/types";
+import FavoriteButton from "./FavoriteButton";
 
 export default function RecipeCard({
   id,
@@ -9,6 +10,7 @@ export default function RecipeCard({
   serving,
   ingredients,
   memo,
+  isFavorite,
 }: RecipeCardProps) {
 
   const [currentServing, setCurrentServing] = useState(serving);
@@ -45,9 +47,16 @@ export default function RecipeCard({
 
             <div className="w-px h-[40px] bg-[#999999] mx-[18px]" />
 
-            <span className="text-[22px] tracking-[0.06em] font-normal">
-              {title}
-            </span>
+            <div className="flex items-center justify-between flex-1">
+              <span className="text-[22px] tracking-[0.06em] font-normal truncate">
+                {title}
+              </span>
+
+              <FavoriteButton
+                recipeId={id}
+                isFavorite={isFavorite}
+              />
+            </div>
           </div>
         </div>
 

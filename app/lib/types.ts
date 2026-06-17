@@ -21,6 +21,7 @@ export type Recipe = {
   baseServing: number
   ingredients: Ingredient[]
   memo?: string | null;
+  isFavorite: boolean;
 }
 
 export type RecipeCardProps = {
@@ -30,6 +31,7 @@ export type RecipeCardProps = {
   serving: number;
   ingredients: Ingredient[];
   memo?: string | null;
+  isFavorite: boolean;
 };
 
 export type RecipeListCardProps = {
@@ -46,4 +48,9 @@ export type SearchHeaderProps = {
   selectedCategory: string;
   setSelectedCategory: (value: string) => void;
   onClose: () => void;
+};
+
+export type FavoriteButtonProps = {
+  recipeId: string;
+  isFavorite: boolean;
 };
