@@ -6,6 +6,8 @@ export default function SearchHeader({
   selectedCategory,
   setSelectedCategory,
   onClose,
+  favoriteOnly,
+  setFavoriteOnly,
 }: SearchHeaderProps) {
 const categories = [
   "和食",
@@ -38,21 +40,48 @@ const categories = [
         </button>
       </div>
 
-      <div className="flex justify-center gap-2 overflow-x-auto px-4 pb-4">
+      <div className="flex justify-center gap-2 px-4 pb-3">
         {categories.map((category) => (
           <button
             key={category}
             type="button"
-            onClick={() => setSelectedCategory(category)}
+            onClick={() => {
+              setSelectedCategory(
+                selectedCategory === category ? "" : category
+              );
+            }}
             className={
               selectedCategory === category
-              ? "px-4 py-2 rounded-full bg-[#999999] text-white"
-              : "px-4 py-2 rounded-full border border-[#999999]"
+                ? "h-[36px] px-4 rounded-full bg-[#999999] text-white"
+                : "h-[36px] px-4 rounded-full border border-[#999999] bg-white"
             }
           >
             {category}
           </button>
         ))}
+      </div>
+
+      <div className="flex justify-start px-6 pb-4">
+        <button
+          type="button"
+          onClick={() => setFavoriteOnly(!favoriteOnly)}
+          className={
+            favoriteOnly
+              ? "h-[36px] px-4 rounded-full bg-[#999999] text-white flex items-center gap-2"
+              : "h-[36px] px-4 rounded-full border border-[#999999] bg-white flex items-center gap-2"
+          }
+        >
+        <img
+          src={
+            favoriteOnly
+              ? "/icons/favorite-on.svg"
+              : "/icons/favorite-off.svg"
+          }
+          alt=""
+          className="w-5 h-5"
+        />
+          お気に入り
+        </button>
       </div>
       
       <div className="px-4">

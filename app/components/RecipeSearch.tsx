@@ -10,14 +10,17 @@ export default function RecipeSearch({ recipes }: RecipeSearchProps) {
   const [isSearching, setIsSearching] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [favoriteOnly, setFavoriteOnly] = useState(false);
+
   const filteredRecipes = recipes.filter((recipe) => {
     const matchesTitle = recipe.title.includes(searchText);
     const matchesCategory =
-      selectedCategory === "" ||
-      recipe.category === selectedCategory;
-    return matchesTitle && matchesCategory;
+      selectedCategory === "" || recipe.category === selectedCategory;
+    const matchesFavorite =
+      !favoriteOnly || recipe.isFavorite;
+    return matchesTitle && matchesCategory && matchesFavorite;
   });
-
+  
   return (
     <main>
       {isSearching ? (
@@ -26,9 +29,12 @@ export default function RecipeSearch({ recipes }: RecipeSearchProps) {
           setSearchText={setSearchText}
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
+          favoriteOnly={favoriteOnly}
+          setFavoriteOnly={setFavoriteOnly}
           onClose={() => {
             setSearchText("");
             setSelectedCategory("");
+            setFavoriteOnly(false);
             setIsSearching(false);
           }}
         />

@@ -48,6 +48,8 @@ export type SearchHeaderProps = {
   selectedCategory: string;
   setSelectedCategory: (value: string) => void;
   onClose: () => void;
+  favoriteOnly: boolean;
+  setFavoriteOnly: (value: boolean) => void;
 };
 
 export type FavoriteButtonProps = {
