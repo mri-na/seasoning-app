@@ -52,8 +52,8 @@ const categories = [
             }}
             className={
               selectedCategory === category
-                ? "h-[36px] px-4 rounded-full bg-[#999999] text-white"
-                : "h-[36px] px-4 rounded-full border border-[#999999] bg-white"
+                ? "h-[36px] px-3 rounded-full bg-[#999999] text-white"
+                : "h-[36px] px-3 rounded-full border border-[#999999] bg-white whitespace-nowrap"
             }
           >
             {category}
